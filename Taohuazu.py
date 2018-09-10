@@ -10,56 +10,9 @@ import requests
 from bs4 import BeautifulSoup
 from requests import RequestException
 from urllib3.exceptions import ReadTimeoutError
-from config import domain, testWebsite
 
-def freeproxy():
-    ipadress = []
-    IP = []
-    pattern = re.compile(r'(\d+\.\d+\.\d+\.\d+:\d+)\n')
-    with open('D:/Projects/Taohuazu/IPaddress.txt', encoding='utf-8') as ip:
-        lines = ip.readlines()
-        for i in lines:
-            result = re.search(pattern, str(i))
-            if result:
-                ipadress.append(result.group(1))
-    for item in ipadress:
-        dic_ip = {
-            'http': item
-        }
-        IP.append(dic_ip)
-    return IP
-def test_IP():
-    ALLIPS = []
-    ips = freeproxy()
-    pool = Pool(32)
-    useIP = pool.map(connect_IP, ips)
-    for item in useIP:
-        if item:
-            ALLIPS.append(item)
-    return ALLIPS
+from config import domain
 
-def connect_IP(_item):
-    useIP = []
-    try:
-        html = requests.get(testWebsite, proxies=_item, timeout=2)
-
-        if html.status_code == 200:
-            print('WELL THIS IS GOOD IPADDERSS')
-            print(_item)
-            useIP.append(_item)
-        return useIP
-    except RequestException:
-        print('请求出错')
-        pass
-    except TimeoutError:
-        print('连接超时')
-        pass
-    except ReadTimeoutError:
-        print('读取超时')
-        pass
-    except ConnectionError:
-        print('连接错误')
-        pass
 
 # 测试域名的可访问
 def connect(_domain):
@@ -82,8 +35,14 @@ def connect(_domain):
         print('TimeOut')
         pass
 
+
 # 最大页面数
 def maxnums(_url):
+    """
+
+    :param _url: 主要类型下第一个页面
+    :return: 最大值
+    """
     html = requests.get(_url)
     response = BeautifulSoup(html.text, 'lxml')
     lastnums = response.select('#fd_page_top > div > a.last')
@@ -93,20 +52,26 @@ def maxnums(_url):
 
 # 构建页面列表
 def mainpages(_domain):
+    """
+    检查域名正确性并且构造所有主页面
+    :param _domain: 传入域名
+    :return: 返回构造的主页面
+    """
     asnocode, ascode, usnocode = [], [], []
     _ip = connect(_domain)
-    # 亚洲無碼原創
+    # 亚洲無碼原創特征
     asnocode_ip = _ip + 'forum-181-1.html'
-    # 亚洲有碼原創
+    # 亚洲有碼原創特征
     ascode_ip = _ip + 'forum-220-1.html'
-    # 欧美無碼
+    # 欧美無碼特征
     usnocode_ip = _ip + 'forum-182-1.html'
 
+    # 为避免下载任务沉重,可直接修改爬取页面的范围,例如1到20即可,约莫需要半小时
     for item_asnocode in range(1, maxnums(asnocode_ip)):
         next_asnocode = _ip + 'forum-181-{}.html'.format(item_asnocode)
         asnocode.append(next_asnocode)
 
-    for item_ascode in range(1, 5):
+    for item_ascode in range(5, maxnums(ascode_ip)):
         next_ascode = _ip + 'forum-220-{}.html'.format(item_ascode)
         ascode.append(next_ascode)
 
@@ -129,7 +94,7 @@ def allpages(_url) -> list:
         speed = random.randint(40, 80)
         print(_url)
         page = requests.get(_url, timeout=5)
-        # 位于哪个页面下的列表
+        # 页码
         listnums = _url.split('-')[-1]
         # www头部
         header = _url.split('forum')[0] + 'thread-'
@@ -141,8 +106,8 @@ def allpages(_url) -> list:
             pattern = re.compile(r'_(\d+)')
 
             ids = responses.select('tbody')
-            for id in ids:
-                result = re.search(pattern, str(id.get('id')))
+            for _id in ids:
+                result = re.search(pattern, str(_id.get('id')))
                 if result:
                     # url: hader + id + '-1-'+listNums
                     url = header + result.group(1) + '-1-' + listnums
@@ -164,7 +129,13 @@ def allpages(_url) -> list:
         pass
 
 
+# 解析每个页面下的图片和种子并且提供下载
 def parse(_url):
+    """
+    解析最终结果页面,并且进行下载
+    :param _url:
+    :return:
+    """
     sign_title = 'Taohuazu_桃花族 -  thz.la'
     sign_bt = "http://thz6.com/forum.php?mod=attachment&"
     pictrues = []
@@ -197,20 +168,15 @@ def parse(_url):
                 download(_url=url_img, _root=_dir, _path=path_img)
 
 
+# 下载功能
 def download(_url:str, _root, _path):
     """
     use for download url, need 3 params
     :param _url: needing url
     :param _root: os.makedirs
     :param _path: whole path in os include root and format
-    :return:
+    :return: 0
     """
-    # IP = test_IP()
-    # ip = [{'http': '191.253.63.49:20183'},{'http': '222.88.147.104:8060'},{'http': '212.98.150.50:80'},{'http': '46.10.157.115:8080'},
-    #       {'http': '201.147.242.186:8080'},{'http': '112.90.50.60:80'},{'http': '103.85.92.221:8080'},{'http': '217.219.25.19:8080'},
-    #       {'http': '82.198.187.135:8081'},{'http': '118.24.157.22:3128'},{'http': '47.74.129.59:3128'},{'http': '177.47.63.202:3128'},
-    #       {'http': '222.73.68.144:8090'},{'http': '177.69.83.11:80'},{'http': '46.225.248.13:53281'},{'http': '177.54.110.14:20183'}]
-    # _proxy = random.sample(ip, 1)
     try:
         response = requests.get(_url, timeout=5)
         if response.status_code == 200:
@@ -236,36 +202,37 @@ def download(_url:str, _root, _path):
         pass
 
 
+# 得到所有待下载的页面总表,以包的形式返回
 def download_pages(_domain):
-    urls = []
+    """
+    所有等待下载的页面
+    :param _domain: 域名
+    :return: 页面列表
+    """
+    as_no_code_urls, as_code_urls, us_no_code_urls = [], [],[]
     as_nocode, as_code, usnocode = mainpages(_domain)
-    # pool_page = Pool(5)
-    # as_no_urls = pool_page.map(allpages, as_nocode)
-    # as_urls = pool_page.map(allpages, as_code)
-    # us_no_urls = pool_page.map(allpages, usnocode)
-    for item in as_code:
-        urls = urls + allpages(_url=item)
-    return urls
-    # pool_page.close()
-    # pool_page.join()
-    # return urls
+    for item_asnocode, item_ascode, item_usnocode in zip(as_nocode, as_code, usnocode):
+        as_no_code_urls = as_no_code_urls + allpages(_url=item_asnocode)
+        as_code_urls = as_code_urls + allpages(_url=item_ascode)
+        us_no_code_urls = us_no_code_urls + allpages(_url=item_usnocode)
+    return as_no_code_urls, as_code_urls, us_no_code_urls
 
-def spider(_domain):
-    ASCODE = download_pages(_domain)
-    pool_ascode = Pool(5)
-    pool_ascode.map(parse, ASCODE)
-    pool_ascode.close()
-    pool_ascode.join()
 
+# 解压包,开启多线程
 def run(_domain):
-    URLS = spider(_domain)
-    pool_download = Pool(10)
-    pool_download.map(parse, URLS)
+    """
+    开启多线程
+    :param _domain: 域名
+    :return: 0
+    """
+    porn = download_pages(_domain)
+    pool_ = Pool(16)
+    for asnocode, ascode, usnocode in zip(porn):
+        pool_.map(parse, asnocode)
+        pool_.map(parse, ascode)
+        pool_.map(parse, usnocode)
+    pool_.close()
+    pool_.join()
 
 if __name__ == "__main__":
-    # ip = test_IP()
-    # for i in ip:
-    #     print(i)
-    # run(_domain=domain)
-    spider(_domain=domain)
-    # download_pages(_domain=domain)
+    run(_domain=domain)
