@@ -2,9 +2,9 @@
 
 ## 桃花族论坛 v1.0
 ---
-1. 亚洲nocode
-2. 亚洲code
-3. 欧美nocode
+1. ASNOCODE
+2. ASCODE
+3. USNOCODE
 
 - open proxy from some website which has many free IP pools
 

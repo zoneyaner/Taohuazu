@@ -7,7 +7,7 @@ import requests
 from requests import RequestException
 from urllib3.exceptions import ReadTimeoutError
 
-from config import testWebsite
+from .config import testWebsite
 
 
 def freeproxy():

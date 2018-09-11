@@ -11,7 +11,7 @@ from bs4 import BeautifulSoup
 from requests import RequestException, ConnectTimeout
 from urllib3.exceptions import ReadTimeoutError
 
-from config import domain, Asia_nocode, Asia_code, US_nocode
+from libs.config import domain, Asia_nocode, Asia_code, US_nocode
 
 
 def connect(_domain):
