@@ -8,16 +8,15 @@ from multiprocessing.pool import Pool
 
 import requests
 from bs4 import BeautifulSoup
-from requests import RequestException
+from requests import RequestException, ConnectTimeout
 from urllib3.exceptions import ReadTimeoutError
 
-from config import domain
+from config import domain, Asia_nocode, Asia_code, US_nocode
 
 
-# 测试域名的可访问
 def connect(_domain):
     """
-    create the main domain which is most important things at first
+    测试域名的可访问
     :param _domain: http://thz6.com
     :return: a dns which can get the code 200
     """
@@ -34,12 +33,14 @@ def connect(_domain):
     except TimeoutError:
         print('TimeOut')
         pass
+    except ConnectTimeout:
+        print('ConnectTimeout')
+        pass
 
 
-# 最大页面数
 def maxnums(_url):
     """
-
+    最大页面数
     :param _url: 主要类型下第一个页面
     :return: 最大值
     """
@@ -50,14 +51,13 @@ def maxnums(_url):
     return int(max_num) + 1
 
 
-# 构建页面列表
-def mainpages(_domain):
+def pages(_domain):
     """
-    检查域名正确性并且构造所有主页面
+    检查域名正确性并且构造所有主页面,得到所有待下载的页面总表
     :param _domain: 传入域名
     :return: 返回构造的主页面
     """
-    asnocode, ascode, usnocode = [], [], []
+    asnocode, ascode, usnocode, urls = [], [], [], []
     _ip = connect(_domain)
     # 亚洲無碼原創特征
     asnocode_ip = _ip + 'forum-181-1.html'
@@ -67,37 +67,38 @@ def mainpages(_domain):
     usnocode_ip = _ip + 'forum-182-1.html'
 
     # 为避免下载任务沉重,可直接修改爬取页面的范围,例如1到20即可,约莫需要半小时
+    #  1-10
     for item_asnocode in range(1, maxnums(asnocode_ip)):
         next_asnocode = _ip + 'forum-181-{}.html'.format(item_asnocode)
-        asnocode.append(next_asnocode)
-
-    for item_ascode in range(5, maxnums(ascode_ip)):
+        asnocode += onepage(_urls=next_asnocode)
+    # 10-20
+    for item_ascode in range(1, maxnums(ascode_ip)):
         next_ascode = _ip + 'forum-220-{}.html'.format(item_ascode)
-        ascode.append(next_ascode)
-
+        ascode += onepage(_urls=next_ascode)
+    # 1-10
     for item_usnocode in range(1, maxnums(usnocode_ip)):
         next_usnocode = _ip + 'forum-182-{}.html'.format(item_usnocode)
-        usnocode.append(next_usnocode)
-    return asnocode, ascode, usnocode
+        usnocode += onepage(_urls=next_usnocode)
+    urls = asnocode + ascode + usnocode
+    return urls
 
 
-# 所有等待下载的页面的url
-def allpages(_url) -> list:
+def onepage(_urls) -> list:
     """
-    亚洲有码
-    :param _url: like http://thz6.com/forum-220-1.html
+    一个主页面下的待下载的URLs
+    :param _urls: like http://thz6.com/forum-220-1.html
     :return: a list about all page's urls
     """
     # stroe mian page
     urls = []
     try:
         speed = random.randint(40, 80)
-        print(_url)
-        page = requests.get(_url, timeout=5)
+        print(_urls)
+        page = requests.get(_urls, timeout=5)
         # 页码
-        listnums = _url.split('-')[-1]
+        listnums = _urls.split('-')[-1]
         # www头部
-        header = _url.split('forum')[0] + 'thread-'
+        header = _urls.split('forum')[0] + 'thread-'
 
         #  http://thz6.com/thread-1875265-1-2.html
         if page.status_code == 200:
@@ -113,23 +114,77 @@ def allpages(_url) -> list:
                     url = header + result.group(1) + '-1-' + listnums
                     urls.append(url)
         if speed >= 50:
-            time.sleep(random.randint(1, 10))
+            time.sleep(random.randint(1, 5))
         return urls
     except RequestException:
-        print('请求出错')
+        print('Request Error')
         pass
     except TimeoutError:
-        print('连接超时')
+        print('TimeoutError')
         pass
     except ReadTimeoutError:
-        print('读取超时')
+        print('ReadTimeoutError')
         pass
     except ConnectionError:
-        print('连接错误')
+        print('ConnectionError')
+        pass
+    except ConnectTimeout:
+        print('ConnectTimeout')
         pass
 
 
-# 解析每个页面下的图片和种子并且提供下载
+# 用于更新的,可定制爬取页数的三大功能类似方法:
+def pages_as_nocode(_domain,_min, _max) -> list:
+    """
+    亚洲无码
+    :param _domain: 网站域名
+    :param _min: 最小值
+    :param _max: 最大值
+    :return: 该区间内所有的等待下载的页面总表
+    """
+    asnocode = []
+    _min = min(_min, _max)
+    _max = max(_min, _max)
+    for item_asnocode in range( _min, _max):
+        next_asnocode = _domain + 'forum-181-{}.html'.format(item_asnocode)
+        asnocode += onepage(_urls=next_asnocode)
+    return asnocode
+
+
+def pages_as_code(_domain, _min, _max) -> list:
+    """
+    亚洲有码
+    :param _domain: 网站域名
+    :param _min: 最小值
+    :param _max: 最大值
+    :return: 该区间内所有的等待下载的页面总表
+    """
+    ascode = []
+    _min = min(_min, _max)
+    _max = max(_min, _max)
+    for item_ascode in range( _min,  _max):
+        next_ascode = _domain + 'forum-220-{}.html'.format(item_ascode)
+        ascode += onepage(_urls=next_ascode)
+    return ascode
+
+
+def pages_us_nocode(_domain, _min, _max) -> list:
+    """
+    欧美无码
+    :param _domain: 网站域名
+    :param _min: 最小值
+    :param _max: 最大值
+    :return: 该区间内所有的等待下载的页面总表
+    """
+    usnocode = []
+    _min = min(_min, _max)
+    _max = max(_min, _max)
+    for item_usnocode in range(_min, _max):
+        next_usnocode = _domain + 'forum-182-{}.html'.format(item_usnocode)
+        usnocode += onepage(_urls=next_usnocode)
+    return usnocode
+
+
 def parse(_url):
     """
     解析最终结果页面,并且进行下载
@@ -139,11 +194,7 @@ def parse(_url):
     sign_title = 'Taohuazu_桃花族 -  thz.la'
     sign_bt = "http://thz6.com/forum.php?mod=attachment&"
     pictrues = []
-
     _dir  = 'D:/Home/Pictures/'
-
-    print("\nSource Root:{}\n".format(_url))
-
     html_next = requests.get(_url, timeout=5)
     if html_next.status_code == 200:
         responses = BeautifulSoup(html_next.text, 'lxml')
@@ -168,10 +219,9 @@ def parse(_url):
                 download(_url=url_img, _root=_dir, _path=path_img)
 
 
-# 下载功能
 def download(_url:str, _root, _path):
     """
-    use for download url, need 3 params
+    下载功能
     :param _url: needing url
     :param _root: os.makedirs
     :param _path: whole path in os include root and format
@@ -187,52 +237,108 @@ def download(_url:str, _root, _path):
                 print('Address : {}'.format(_path.split('/')[-1]))
                 with open(_path, 'wb') as i:
                     i.write(response.content)
-        time.sleep(random.randint(0,3))
+        time.sleep(random.randint(1,3))
     except RequestException:
-        print('请求出错')
+        print('Request Error')
         pass
     except TimeoutError:
-        print('连接超时')
+        print('TimeoutError')
         pass
     except ReadTimeoutError:
-        print('读取超时')
+        print('ReadTimeoutError')
         pass
     except ConnectionError:
-        print('连接错误')
+        print('ConnectionError')
+        pass
+    except ConnectTimeout:
+        print('ConnectTimeout')
+        pass
+    except OSError:
+        print('OSError')
         pass
 
 
-# 得到所有待下载的页面总表,以包的形式返回
-def download_pages(_domain):
+def run( _urls, _cores):
     """
-    所有等待下载的页面
-    :param _domain: 域名
-    :return: 页面列表
-    """
-    as_no_code_urls, as_code_urls, us_no_code_urls = [], [],[]
-    as_nocode, as_code, usnocode = mainpages(_domain)
-    for item_asnocode, item_ascode, item_usnocode in zip(as_nocode, as_code, usnocode):
-        as_no_code_urls = as_no_code_urls + allpages(_url=item_asnocode)
-        as_code_urls = as_code_urls + allpages(_url=item_ascode)
-        us_no_code_urls = us_no_code_urls + allpages(_url=item_usnocode)
-    return as_no_code_urls, as_code_urls, us_no_code_urls
-
-
-# 解压包,开启多线程
-def run(_domain):
-    """
-    开启多线程
-    :param _domain: 域名
+    多线程
+    :param _urls: 待下载的URL列表
+    :param _cores:  开启的核心数(四核)
     :return: 0
     """
-    porn = download_pages(_domain)
-    pool_ = Pool(16)
-    for asnocode, ascode, usnocode in zip(porn):
-        pool_.map(parse, asnocode)
-        pool_.map(parse, ascode)
-        pool_.map(parse, usnocode)
+    pool_ = Pool(_cores)
+    pool_.map(parse, _urls)
     pool_.close()
     pool_.join()
+    return
+
+
+def choice():
+    """
+    判断某类型下是否更新或者全部爬取的逻辑
+    :return:
+    """
+    _judge = input('是否更新该类型下的所有页面?(yes/no)\n').lower()
+    _range = str(input("请输入更新范围:(以','隔开)\n"))
+    range_ = _range.split(',')
+    if range_:
+        range_01 = range_[0]
+        range_02 = range_[-1]
+        return _judge, int(range_01), int(range_02)
+    else:
+        print(_range)
+        print('输入错误!!!!')
+        return
+
+
+def spider(_domain):
+    """
+    更新
+    :param _domain: 网站域名
+    :return: 0
+    """
+    # 1-10
+    print('\t1:亚洲无码\n')
+    # 1-30-35
+    print('\t2:亚洲有码\n')
+    # 1-10
+    print('\t3:欧美无码\n')
+
+    print('\t4:全部内容\n')
+
+    choices = int(input('请输入你要爬取的类型编号:\n'))
+    if choices == 1:
+        _judge,range_01,range_02 = choice()
+        if _judge == 'no':
+            run(_urls=pages_as_nocode(_domain=_domain, _min=range_01, _max=range_02), _cores=8)
+        elif _judge == 'yes':
+            run(_urls=pages_as_nocode(_domain=_domain, _min=1, _max=maxnums(_url=Asia_nocode)), _cores=32)
+        else:
+            return
+
+    elif choices == 2:
+        _judge, range_01, range_02 = choice()
+        if _judge == 'no':
+            run(_urls=pages_as_code(_domain=_domain, _min=range_01, _max=range_02), _cores=16)
+        elif _judge == 'yes':
+            run(_urls=pages_as_code(_domain=_domain, _min=1, _max=maxnums(_url=Asia_code)), _cores=32)
+        else:
+            return
+
+    elif choices == 3:
+        _judge, range_01, range_02 = choice()
+        if _judge == 'no':
+            run(_urls=pages_us_nocode(_domain=_domain, _min=range_01, _max=range_02), _cores=8)
+        elif _judge == 'yes':
+            run(_urls=pages_us_nocode(_domain=_domain, _min=1, _max=maxnums(_url=US_nocode)), _cores=32)
+        else:
+            return
+    elif choices == 4:
+        run(_urls=pages(_domain=_domain), _cores=8)
+        return
+    else:
+        print('输入错误,请核实信息')
+        return
+
 
 if __name__ == "__main__":
-    run(_domain=domain)
+    spider(_domain=domain)

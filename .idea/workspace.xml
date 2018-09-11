@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c91bc5cf-785b-4071-8229-df3668708675" name="Default Changelist" comment="format and fix some bug,task not be 100%">
-      <change afterPath="$PROJECT_DIR$/IPaddress.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Test.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/freeProxy.py" afterDir="false" />
+    <list default="true" id="c91bc5cf-785b-4071-8229-df3668708675" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Taohuazu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Taohuazu.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -17,7 +14,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/Taohuazu$Taohuazu_V2_0.coverage" NAME="Taohuazu V2.0 Coverage Results" MODIFIED="1536501978019" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Taohuazu$Taohuazu.coverage" NAME="Taohuazu Coverage Results" MODIFIED="1536581355079" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Taohuazu$Taohuazu.coverage" NAME="Taohuazu Coverage Results" MODIFIED="1536628099206" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Taohuazu$python.coverage" NAME="python Coverage Results" MODIFIED="1536395438568" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/Taohuazu$pic_dowanload__1_.coverage" NAME="pic_dowanload (1) Coverage Results" MODIFIED="1536472936556" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/../V2EX" />
     <SUITE FILE_PATH="coverage/Taohuazu$test.coverage" NAME="test Coverage Results" MODIFIED="1536495416692" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
@@ -44,7 +41,7 @@
     <session id="1833096089">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="12" />
+          <entry key="project.closed" value="13" />
           <entry key="project.open.time.1" value="1" />
           <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.15" value="1" />
@@ -54,11 +51,11 @@
           <entry key="project.open.time.44" value="1" />
           <entry key="project.open.time.45" value="1" />
           <entry key="project.open.time.47" value="1" />
-          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.5" value="2" />
           <entry key="project.open.time.62" value="1" />
           <entry key="project.open.time.7" value="1" />
           <entry key="project.open.time.89" value="1" />
-          <entry key="project.opened" value="13" />
+          <entry key="project.opened" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -67,7 +64,7 @@
           <entry key="localhost/porn/details" value="1" />
           <entry key="localhost/porn/title" value="2" />
           <entry key="md" value="1" />
-          <entry key="py" value="32" />
+          <entry key="py" value="33" />
           <entry key="txt" value="1" />
         </counts>
       </usages-collector>
@@ -76,13 +73,13 @@
           <entry key="MONGO" value="3" />
           <entry key="Markdown" value="2" />
           <entry key="PLAIN_TEXT" value="1" />
-          <entry key="Python" value="32" />
+          <entry key="Python" value="33" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="md" value="97" />
-          <entry key="py" value="14356" />
+          <entry key="py" value="17230" />
           <entry key="txt" value="203" />
         </counts>
       </usages-collector>
@@ -90,7 +87,7 @@
         <counts>
           <entry key="Markdown" value="97" />
           <entry key="PLAIN_TEXT" value="203" />
-          <entry key="Python" value="14356" />
+          <entry key="Python" value="17230" />
         </counts>
       </usages-collector>
     </session>
@@ -99,37 +96,20 @@
     <favorites_list name="Taohuazu" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Taohuazu.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="844">
-              <caret line="228" column="20" lean-forward="true" selection-start-line="228" selection-start-column="20" selection-end-line="228" selection-end-column="20" />
+            <state relative-caret-position="436">
+              <caret line="340" lean-forward="true" selection-start-line="340" selection-end-line="340" />
               <folding>
                 <element signature="e#85#94#0" expanded="true" />
-                <marker date="1536584347112" expanded="true" signature="330:331" ph="..." />
-                <marker date="1536584347112" expanded="true" signature="4804:4805" ph="..." />
-                <marker date="1536584347112" expanded="true" signature="6451:6696" ph="..." />
-                <marker date="1536584347112" expanded="true" signature="6694:6696" ph="..." />
+                <marker date="1536630057558" expanded="true" signature="5069:5091" ph="..." />
+                <marker date="1536630057558" expanded="true" signature="6305:6306" ph="..." />
+                <marker date="1536630057558" expanded="true" signature="7620:7623" ph="..." />
+                <marker date="1536630057558" expanded="true" signature="7689:8023" ph="..." />
+                <marker date="1536630057558" expanded="true" signature="9505:9507" ph="..." />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Test.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="32">
-              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/freeProxy.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
             </state>
           </provider>
         </entry>
@@ -162,6 +142,9 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="PUSH_TAGS">
+      <GitPushTagMode />
+    </option>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -173,10 +156,10 @@
         <option value="$PROJECT_DIR$/../pic_dowanload.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/Taohuazu V2.0.py" />
-        <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/freeProxy.py" />
-        <option value="$PROJECT_DIR$/Taohuazu.py" />
         <option value="$PROJECT_DIR$/Test.py" />
+        <option value="$PROJECT_DIR$/config.py" />
+        <option value="$PROJECT_DIR$/Taohuazu.py" />
       </list>
     </option>
   </component>
@@ -418,7 +401,14 @@
       <option name="project" value="LOCAL" />
       <updated>1536580745506</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="format and fix some bug,task not be 100%">
+      <created>1536584387842</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1536584387842</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView">
@@ -437,7 +427,6 @@
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49919486" weight="0.13086233" />
       <window_info id="Structure" order="1" sideWeight="0.50080514" side_tool="true" weight="0.13615733" />
       <window_info id="Favorites" order="2" sideWeight="0.50080514" side_tool="true" weight="0.13615733" />
-      <window_info active="true" anchor="bottom" id="Messages" visible="true" weight="0.32970452" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Debug" order="2" weight="0.39968896" />
@@ -447,16 +436,17 @@
       <window_info anchor="bottom" id="Docker" order="6" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32850242" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32970452" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.32850242" />
       <window_info anchor="bottom" id="Python Console" order="11" weight="0.32850242" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32970452" />
       <window_info anchor="right" id="Mongo Explorer" order="0" weight="0.24432677" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
       <window_info anchor="right" id="SciView" order="4" weight="0.32980332" />
       <window_info anchor="right" id="Database" order="5" show_stripe_button="false" weight="0.32980332" />
-      <window_info anchor="right" id="Run" order="6" weight="0.8119658" />
+      <window_info anchor="right" id="Run" order="6" weight="0.4136164" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -474,22 +464,10 @@
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://D:/Home/pic_dowanload.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="20" column="29" lean-forward="true" selection-start-line="20" selection-start-column="29" selection-end-line="20" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://D:/Home/pic_dowanload.py" />
     <entry file="file://$PROJECT_DIR$/tasks.txt" />
     <entry file="file://$PROJECT_DIR$/Tasks.md" />
-    <entry file="file://$PROJECT_DIR$/../V2EX/pic_dowanload.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../V2EX/pic_dowanload.py" />
     <entry file="file://$PROJECT_DIR$/../pic_dowanload.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="478">
@@ -508,13 +486,6 @@
     <entry file="file://$PROJECT_DIR$/../wormDemo/demo.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="64">
-          <caret line="4" column="12" lean-forward="true" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/README.MD">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
@@ -530,24 +501,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Taohuazu.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="844">
-          <caret line="228" column="20" lean-forward="true" selection-start-line="228" selection-start-column="20" selection-end-line="228" selection-end-column="20" />
-          <folding>
-            <element signature="e#85#94#0" expanded="true" />
-            <marker date="1536584347112" expanded="true" signature="330:331" ph="..." />
-            <marker date="1536584347112" expanded="true" signature="4804:4805" ph="..." />
-            <marker date="1536584347112" expanded="true" signature="6451:6696" ph="..." />
-            <marker date="1536584347112" expanded="true" signature="6694:6696" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Test.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="32">
           <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="9" column="2" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Taohuazu.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="340" lean-forward="true" selection-start-line="340" selection-end-line="340" />
+          <folding>
+            <element signature="e#85#94#0" expanded="true" />
+            <marker date="1536630057558" expanded="true" signature="5069:5091" ph="..." />
+            <marker date="1536630057558" expanded="true" signature="6305:6306" ph="..." />
+            <marker date="1536630057558" expanded="true" signature="7620:7623" ph="..." />
+            <marker date="1536630057558" expanded="true" signature="7689:8023" ph="..." />
+            <marker date="1536630057558" expanded="true" signature="9505:9507" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
